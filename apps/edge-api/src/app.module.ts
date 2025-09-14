@@ -50,6 +50,6 @@ import { AiModule } from './ai/ai.module';
     HealthModule,
   ],
   controllers: [AppController],
-  [AppService],
+  providers: [AppService],
 })
 export class AppModule { }
