@@ -6,7 +6,7 @@ export class RouteHistory {
     id: number;
 
     @Column()
-    userId: number; // FK logique vers user.id
+    userId: number;
 
     @Column()
     origin: string;

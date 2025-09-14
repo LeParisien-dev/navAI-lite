@@ -1,4 +1,3 @@
-// [MODIF] retirer BrowserRouter de l'import
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./auth/ProtectedRoute";

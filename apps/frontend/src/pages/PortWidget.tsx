@@ -1,4 +1,3 @@
-// apps/frontend/src/widgets/PortWidget.tsx
 import { useEffect, useState } from "react";
 import { api } from "../lib/http";
 

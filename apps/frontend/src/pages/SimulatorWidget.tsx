@@ -1,4 +1,3 @@
-// apps/frontend/src/widgets/SimulatorWidget.tsx
 import { useEffect, useState } from "react";
 import { api } from "../lib/http";
 
@@ -15,7 +14,7 @@ export default function SimulatorWidget() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    // [MODIF] factorisation + refresh auto comme VisionWidget
+    // factorisation + refresh auto comme VisionWidget
     async function loadSimulator() {
         try {
             const res: SimData = await api("/simulator");
@@ -32,7 +31,7 @@ export default function SimulatorWidget() {
     useEffect(() => {
         loadSimulator();
         const interval = setInterval(loadSimulator, 5000); // refresh toutes les 5s
-        return () => clearInterval(interval);              // cleanup à l’unmount
+        return () => clearInterval(interval);
     }, []);
 
     if (loading) {

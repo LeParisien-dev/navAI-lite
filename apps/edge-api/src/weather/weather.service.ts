@@ -19,7 +19,7 @@ export class WeatherService {
         this.lastWeather = {
             location: "Shanghai Port",
             windSpeed: `${wind} m/s`,
-            windDir: `${windDir}`,            // [AJOUT] direction du vent
+            windDir: `${windDir}`,
             visibility: `${visibility} m`,
             temperature: `${temp} °C`,
             waveHeight: `${wave} m`,

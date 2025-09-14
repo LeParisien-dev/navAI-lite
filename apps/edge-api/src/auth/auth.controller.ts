@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
-        private readonly jwtService: JwtService, // ajout pour signer le token
+        private readonly jwtService: JwtService,
     ) { }
 
     @Public()
@@ -26,7 +26,6 @@ export class AuthController {
             throw new UnauthorizedException('Identifiants invalides');
         }
 
-        // payload minimal : id + username
         const payload = { sub: user.id, username: user.username };
         const token = await this.jwtService.signAsync(payload);
 

@@ -7,9 +7,9 @@ import { PortController } from './port.controller';
 import { AiModule } from '../ai/ai.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Port]), AiModule], // ← IA dispo ici
+    imports: [TypeOrmModule.forFeature([Port]), AiModule],
     controllers: [PortController],
     providers: [PortService],
-    exports: [PortService], // ← à garder si besoin en dehors
+    exports: [PortService],
 })
 export class PortModule { }

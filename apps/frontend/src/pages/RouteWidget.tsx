@@ -1,4 +1,3 @@
-// apps/frontend/src/widgets/RouteWidget.tsx
 import { useEffect, useState } from "react";
 import { api } from "../lib/http";
 
@@ -14,7 +13,6 @@ export default function RouteWidget() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    // [MODIF] fonction de fetch dédiée
     async function loadRoute() {
         try {
             const res: RouteData = await api("/route");
@@ -27,7 +25,7 @@ export default function RouteWidget() {
         }
     }
 
-    // [MODIF] polling toutes les 5s
+    // polling toutes les 5s
     useEffect(() => {
         loadRoute();
         const interval = setInterval(loadRoute, 5000);

@@ -33,7 +33,6 @@ export class PortService implements OnModuleInit {
     }
 
     getCongestion(vesselId: string) {
-        // 🔗 Branche l’IA ici
         return this.aiService.predictCongestion(vesselId);
     }
 
@@ -42,7 +41,6 @@ export class PortService implements OnModuleInit {
             const ports = await this.portRepo.find();
 
             for (const port of ports) {
-                // Random congestion simulée en DB
                 const roll = Math.random();
                 if (roll < 0.33) port.congestion = 'Low';
                 else if (roll < 0.66) port.congestion = 'Medium';

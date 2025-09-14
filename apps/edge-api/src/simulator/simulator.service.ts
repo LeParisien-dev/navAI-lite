@@ -5,7 +5,7 @@ import { SimulatorLog } from "./simulator-log.entity";
 
 @Injectable()
 export class SimulatorService {
-    private latitude = 48.8566;   // Paris
+    private latitude = 48.8566;
     private longitude = 2.3522;
     private speed = 16;           // knots
     private fuelLevel = 72;       // en %

@@ -4,9 +4,8 @@ import { JitService } from './jit.service';
 import { AiModule } from '../ai/ai.module';
 
 @Module({
-    imports: [AiModule],           // accès à AiService
+    imports: [AiModule],
     controllers: [JitController],
     providers: [JitService],
-    // exports: [JitService],       // [OPTIONNEL] active si utilisé dans d'autres modules
 })
 export class JitModule { }

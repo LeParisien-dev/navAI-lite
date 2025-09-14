@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// [SUPPR] import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 
 import { UsersModule } from './users/users.module';
@@ -35,8 +34,8 @@ import { AiModule } from './ai/ai.module';
       synchronize: true, // dev uniquement
       logging: true,
       dropSchema: (process.env.TYPEORM_DROP_SCHEMA || '').toLowerCase() === 'true',
-      retryAttempts: 10,  // [MODIF] tolérance de reconnexion
-      retryDelay: 3000,   // [MODIF]
+      retryAttempts: 10,
+      retryDelay: 3000,
     }),
 
     UsersModule,
@@ -50,7 +49,7 @@ import { AiModule } from './ai/ai.module';
     AiModule,
     HealthModule,
   ],
-  controllers: [AppController], // [MODIF] HealthController retiré (déclaré dans HealthModule)
-  providers: [AppService],
+  controllers: [AppController],
+  [AppService],
 })
 export class AppModule { }

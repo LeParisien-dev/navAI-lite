@@ -15,7 +15,7 @@ export class AiService {
     private readonly logger = new Logger(AiService.name);
 
     constructor() {
-        this.logger.log('✅ AI Service initialisé (mocks hybrides déterministes + aléatoires)');
+        this.logger.log('AI Service initialisé (mocks hybrides déterministes + aléatoires)');
     }
 
     predictCongestion(portName?: string) {
@@ -49,7 +49,6 @@ export class AiService {
         if (typeof distanceNm === 'number' && distanceNm > 0 && speedKnots > 0) {
             hours = distanceNm / speedKnots;
         } else {
-            // Fallback fixe (4h) pour robustesse, pas seulement du random
             hours = 4;
         }
 

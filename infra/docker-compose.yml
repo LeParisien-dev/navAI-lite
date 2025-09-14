@@ -11,10 +11,8 @@ services:
       POSTGRES_USER: navai
       POSTGRES_PASSWORD: navai
       POSTGRES_DB: navai
-    # [MODIF] on supprime le bind-mount local ; on passe à un volume Docker nommé
     volumes:
       - pgdata:/var/lib/postgresql/data
-    # [AJOUT] healthcheck pour garantir que Postgres est prêt avant le backend
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U navai -d navai" ]
       interval: 5s
@@ -29,7 +27,6 @@ services:
     container_name: navai_backend
     depends_on:
       db:
-        # [MODIF] attendre la santé OK du service db
         condition: service_healthy
     ports:
       - "3000:3000"
@@ -39,9 +36,7 @@ services:
       DATABASE_USER: navai
       DATABASE_PASSWORD: navai
       DATABASE_NAME: navai
-      # [AJOUT] dev only : reset complet du schéma à chaque démarrage
       TYPEORM_DROP_SCHEMA: "true"
 
 volumes:
-  # [AJOUT] volume Docker nommé (géré par Docker, pas par un dossier hôte)
   pgdata:

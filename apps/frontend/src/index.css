@@ -111,8 +111,7 @@ button:focus-visible {
   animation: glow 2.2s ease-in-out infinite;
 }
 
-/* si tu utilises déjà animate-pulse-slow/er/st, garde-les.
-   sinon, voici des variantes propres : */
+/* variantes propres : */
 @keyframes pulseSlow {
 
   0%,

@@ -1,4 +1,3 @@
-// apps/frontend/src/widgets/VisionWidget.tsx
 import { useEffect, useState } from "react";
 import { api } from "../lib/http";
 
@@ -65,10 +64,10 @@ export default function VisionWidget() {
                 <div>📷 Camera:</div>
                 <div>{vision.cameraId}</div>
 
-                <div>🎯 Objet:</div>
+                <div>Objet:</div>
                 <div>{vision.detectedObjects}</div>
 
-                <div>✅ Confiance:</div>
+                <div>Confiance:</div>
                 <div>{vision.confidence}</div>
             </div>
 

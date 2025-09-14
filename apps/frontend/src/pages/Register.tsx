@@ -6,7 +6,7 @@ export default function Register() {
     const { register } = useAuth();
     const nav = useNavigate();
 
-    const [username, setUsername] = useState(""); // [MODIF] nouveau champ
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,6 @@ export default function Register() {
         setError(null);
         setLoading(true);
         try {
-            // [MODIF] on envoie username aussi
             await register(username, email, password);
             nav("/users");
         } catch (err: any) {

@@ -1,4 +1,3 @@
-// apps/backend/src/route/route.service.ts
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -20,10 +19,8 @@ export class RouteService {
         private readonly routeRepo: Repository<RouteHistory>,
     ) { }
 
-    // [MODIF] sessions par utilisateur (singleton provider Nest → mémoire process)
     private sessions = new Map<number, RouteSession>();
 
-    // [MODIF] crée une session avec ETA fixe, vitesse réaliste (16–21 kn)
     private createSession(userId: number): RouteSession {
         const ports = ["Le Havre", "New York", "Shanghai", "Hamburg", "Los Angeles", "Singapore"];
 
@@ -33,7 +30,6 @@ export class RouteService {
             destination = ports[Math.floor(Math.random() * ports.length)];
         }
 
-        // distances plus longues pour éviter de boucler trop vite
         const totalDistanceNm = 3000 + Math.floor(Math.random() * 5000); // 3000–8000 NM
 
         const speedKnots = 16 + Math.floor(Math.random() * 6); // 16–21 kn (porte-conteneurs)
@@ -51,7 +47,6 @@ export class RouteService {
 
         this.sessions.set(userId, session);
 
-        // persistance "historique" (best effort)
         this.routeRepo
             .save(this.routeRepo.create({ userId, origin, destination }))
             .catch(() => { /* noop */ });
@@ -59,12 +54,10 @@ export class RouteService {
         return session;
     }
 
-    // [MODIF] récupère ou crée la session
     private getSession(userId: number): RouteSession {
         return this.sessions.get(userId) ?? this.createSession(userId);
     }
 
-    // [MODIF] API principale
     async getRoute(userId: number = 1) {
         const s = this.getSession(userId);
 
@@ -73,13 +66,11 @@ export class RouteService {
 
         let remainingNm = Math.max(s.totalDistanceNm - travelledNm, 0);
 
-        // si arrivé → redémarrer une nouvelle session
         if (remainingNm <= 0) {
             this.sessions.delete(userId);
             return this.getRoute(userId);
         }
 
-        // [MODIF] renvoi avec ETA figée + distance à 0.1 NM
         return {
             origin: s.origin,
             destination: s.destination,

@@ -1,4 +1,3 @@
-// apps/edge-api/src/jit/jit.service.ts
 import { Injectable } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 
@@ -17,7 +16,6 @@ export class JitService {
     }) {
         const vesselId = params.vesselId ?? 'SIM-001';
 
-        // [MODIF] coercion robuste
         const distanceNm =
             params.distanceNm !== undefined && params.distanceNm !== null && params.distanceNm !== ''
                 ? (() => {
@@ -35,7 +33,6 @@ export class JitService {
                 : 16;
 
         try {
-            // ---------- ETA ----------
             let etaResp: any;
             try {
                 etaResp = (this.ai as any).predictEta
@@ -59,7 +56,6 @@ export class JitService {
             if (!etaIso) etaIso = fallbackEta.toISOString();
             const eta = new Date(etaIso);
 
-            // ---------- Fenêtre ----------
             const parsedStart = params.windowStartIso ? new Date(params.windowStartIso) : null;
             const parsedEnd = params.windowEndIso ? new Date(params.windowEndIso) : null;
 
@@ -73,7 +69,6 @@ export class JitService {
                     ? parsedEnd
                     : new Date(Date.now() + 6 * 3600 * 1000);
 
-            // ---------- Statut ----------
             let status: JitStatus;
             if (eta < start) status = 'early';
             else if (eta > end) status = 'late';
@@ -81,7 +76,6 @@ export class JitService {
 
             const slackHours = Number(((end.getTime() - eta.getTime()) / 3600000).toFixed(2));
 
-            // ---------- Fuel ----------
             let fuelResp: any = null;
             try {
                 fuelResp = (this.ai as any).predictFuel
@@ -111,7 +105,6 @@ export class JitService {
                 },
             };
         } catch (err) {
-            // ---------- [MODIF] Fallback dur si tout casse ----------
             const now = Date.now();
             return {
                 vesselId,

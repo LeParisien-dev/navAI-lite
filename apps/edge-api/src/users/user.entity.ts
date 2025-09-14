@@ -9,7 +9,7 @@ export class User {
     username: string;
 
     @Column({ unique: true })
-    email: string; // [MODIF] ajout du champ email
+    email: string;
 
     @Column()
     passwordHash: string;

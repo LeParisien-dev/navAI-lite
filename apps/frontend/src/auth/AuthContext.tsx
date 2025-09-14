@@ -34,7 +34,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setToken(access);
     }, []);
 
-    // [MODIF] on ajoute username dans le payload
     const register = useCallback(
         async (username: string, email: string, password: string) => {
             await api("/auth/register", {
