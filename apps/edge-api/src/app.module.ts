@@ -1,4 +1,3 @@
-// apps/edge-api/src/app.module.ts
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -17,6 +16,8 @@ import { PortModule } from './port/port.module';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AiModule } from './ai/ai.module';
 
+console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,9 +27,9 @@ import { AiModule } from './ai/ai.module';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL, // ✅ utilisation directe de DATABASE_URL
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
-      synchronize: true, // ⚠️ à désactiver en prod réelle
+      synchronize: true,
       logging: true,
       retryAttempts: 10,
       retryDelay: 3000,
