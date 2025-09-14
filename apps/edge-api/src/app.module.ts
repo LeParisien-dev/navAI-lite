@@ -26,13 +26,9 @@ import { AiModule } from './ai/ai.module';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: parseInt(process.env.DATABASE_PORT || '5432', 10),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
+      url: process.env.DATABASE_URL, // ✅ utilisation directe de DATABASE_URL
       autoLoadEntities: true,
-      synchronize: true, // à désactiver en prod
+      synchronize: true, // ⚠️ à désactiver en prod réelle
       logging: true,
       retryAttempts: 10,
       retryDelay: 3000,
