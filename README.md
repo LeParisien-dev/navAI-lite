@@ -19,7 +19,7 @@ En somme : une **preuve de compétences full-stack AI engineer** qui illustre la
 
 ## Demo
 <figure>
-  <img src="docs/assets/dashboard-widgets.jpg"
+  <img src="docs/dashboard-widgets.jpg"
        alt="Navai-Lite — Dashboard avec widgets météo, vision, route, AI et indicateurs en temps quasi réel" />
   <figcaption>
     Dashboard principal : widgets météo, vision, route, AI (exemple de rendu).
