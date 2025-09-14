@@ -29,10 +29,13 @@ console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
       type: 'postgres',
       url: process.env.DATABASE_URL,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: true, // ⚠️ à désactiver en prod réelle
       logging: true,
       retryAttempts: 10,
       retryDelay: 3000,
+      ssl: {
+        rejectUnauthorized: false, // ✅ obligatoire avec Render Postgres
+      },
     }),
 
     UsersModule,
