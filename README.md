@@ -13,7 +13,18 @@ Le projet démontre :
 - **Architecture modulaire** et **scalable**, pensée pour accueillir de l’IA sans refactor.  
 - **Storytelling concret** : un dashboard maritime simulé, inspiré d’environnements edge/offline.  
 
-En résumé : une **preuve de compétences full-stack AI engineer** qui illustre la maîtrise du cycle complet **Frontend → Backend → DB → AI-ready**.  
+En somme : une **preuve de compétences full-stack AI engineer** qui illustre la maîtrise du cycle complet **Frontend → Backend → DB → AI-ready**.  
+
+---
+
+## Demo
+<figure>
+  <img src="docs/assets/dashboard-widgets.jpg"
+       alt="Navai-Lite — Dashboard avec widgets météo, vision, route, AI et indicateurs en temps quasi réel" />
+  <figcaption>
+    Dashboard principal : widgets météo, vision, route, AI (exemple de rendu).
+  </figcaption>
+</figure>
 
 ---
 
