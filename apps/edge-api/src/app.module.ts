@@ -1,3 +1,4 @@
+// apps/edge-api/src/app.module.ts
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -25,15 +26,14 @@ import { AiModule } from './ai/ai.module';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST || 'localhost',
+      host: process.env.DATABASE_HOST,
       port: parseInt(process.env.DATABASE_PORT || '5432', 10),
-      username: process.env.DATABASE_USER || 'navai',
-      password: process.env.DATABASE_PASSWORD || 'navai',
-      database: process.env.DATABASE_NAME || 'navai',
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       autoLoadEntities: true,
-      synchronize: true, // dev uniquement
+      synchronize: true, // à désactiver en prod
       logging: true,
-      dropSchema: (process.env.TYPEORM_DROP_SCHEMA || '').toLowerCase() === 'true',
       retryAttempts: 10,
       retryDelay: 3000,
     }),
