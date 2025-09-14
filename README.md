@@ -66,7 +66,7 @@ navai-lite/
 - **Healthcheck** : Endpoint `/health` pour monitoring.  
 - **Weather API** : Données météo simulées et rafraîchies en temps réel.  
 - **Simulator** : Génération de logs (position, vitesse, fuel).  
-- **Routes & Ports** : Gestion des routes maritimes et congestion portuaire.  
+- **Routes & Port** : Gestion des routes maritimes et congestion portuaire.  
 - **Vision** : Mock de détection d’objets caméra.  
 - **AI** :  
   - `/ai/congestion` → score de congestion portuaire.  
@@ -95,7 +95,7 @@ Le projet démontre que l’IA peut être **branchée sans refactor** : architec
 ## Lancer le projet
 ### 1. Cloner & installer
 ```bash
-git clone https://github.com/ton-profil/navai-lite.git
+git clone https://github.com/LeParisien-dev/navAI-lite.git
 cd navai-lite
 pnpm install
 ```
