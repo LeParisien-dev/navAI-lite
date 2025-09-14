@@ -1,0 +1,1 @@
+# Répertoire réservé pour libs partagées (DTOs, utils, middlewares, etc.)

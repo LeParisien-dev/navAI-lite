@@ -1,0 +1,1 @@
+# Répertoire réservé pour futurs micro-services (cloud, workers, etc.)

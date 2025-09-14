@@ -1,0 +1,54 @@
+# --- Node / monorepo ---
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# --- Build outputs (ne pas embarquer, on recompile dans l'image) ---
+dist
+build
+.next
+out
+
+# --- Logs ---
+logs
+*.log
+
+# --- Tests / coverage ---
+coverage
+.nyc_output
+jest-html-reporters-*
+
+# --- Env files (secrets jamais dans l’image) ---
+.env
+.env.local
+.env.*.local
+
+# --- Temp / runtime ---
+temp
+.tmp
+/tmp
+*.pid
+*.seed
+*.pid.lock
+
+# --- Docker volumes (montés séparément) ---
+docker-data
+pgdata
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Git / VCS ---
+.git
+.gitignore
+.gitattributes
+
+# --- IDEs / OS ---
+.vscode
+.idea
+.DS_Store
+Thumbs.db

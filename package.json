@@ -1,0 +1,27 @@
+{
+  "name": "navai-lite",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "dev": "echo \"Choisir un workspace (frontend ou edge-api)\"",
+    "build": "pnpm --filter frontend build && pnpm --filter edge-api build",
+    "start": "pnpm --filter edge-api start:prod",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "dependencies": {
+    "@nestjs/axios": "^4.0.1",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/typeorm": "^11.0.0",
+    "axios": "^1.12.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "pg": "^8.16.3",
+    "typeorm": "^0.3.26"
+  },
+  "packageManager": "pnpm@10.15.1"
+}
