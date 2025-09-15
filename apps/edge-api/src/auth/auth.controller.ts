@@ -1,6 +1,7 @@
-import { Controller, Post, Body, Get, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 import { Public } from './public.decorator';
 import { JwtService } from '@nestjs/jwt';
 
@@ -19,9 +20,8 @@ export class AuthController {
 
     @Public()
     @Post('login')
-    async login(@Body() body: { username: string; password: string }) {
-        const user = await this.authService.login(body.username, body.password);
-
+    async login(@Body() dto: LoginDto) {
+        const user = await this.authService.login(dto.email, dto.password);
         if (!user) {
             throw new UnauthorizedException('Identifiants invalides');
         }
@@ -30,15 +30,5 @@ export class AuthController {
         const token = await this.jwtService.signAsync(payload);
 
         return { access_token: token };
-    }
-
-    @Post('logout')
-    async logout(@Body() body: { userId: number }) {
-        return this.authService.logout(body.userId);
-    }
-
-    @Get('connected')
-    async connectedUsers() {
-        return this.authService.connectedUsers();
     }
 }

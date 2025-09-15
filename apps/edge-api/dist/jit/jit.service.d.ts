@@ -30,7 +30,25 @@ export declare class JitService {
                 start: string;
                 end: string;
             };
+            note?: undefined;
         };
+    } | {
+        vesselId: string;
+        eta: string;
+        status: JitStatus;
+        slackHours: number;
+        windowStartIso: string;
+        windowEndIso: string;
+        fuelSaved: string;
+        details: {
+            note: string;
+            etaRaw?: undefined;
+            inputs?: undefined;
+            window?: undefined;
+        };
+        distanceNm?: undefined;
+        speedKnots?: undefined;
+        fuel?: undefined;
     }>;
 }
 export {};

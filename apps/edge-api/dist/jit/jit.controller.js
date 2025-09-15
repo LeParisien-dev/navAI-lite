@@ -42,25 +42,13 @@ let JitController = class JitController {
         };
     }
     async getStatus(vesselId = 'SIM-001', distanceNm, speedKnots, windowStartIso, windowEndIso) {
-        const d = distanceNm !== undefined && distanceNm !== '' ? Number(distanceNm) : undefined;
-        const s = speedKnots !== undefined && speedKnots !== '' ? Number(speedKnots) : undefined;
-        const out = await this.jit.status({ vesselId, distanceNm: d, speedKnots: s, windowStartIso, windowEndIso });
-        const plannedArrival = out.windowStartIso ?? out.eta;
-        const optimizedArrival = out.eta;
-        const parsed = typeof out.fuelSaved === 'string' ? Number(out.fuelSaved.replace('%', '')) : NaN;
-        const fuelSavedPct = Number.isFinite(parsed)
-            ? parsed
-            : Math.max(0, Math.min(10, (out.slackHours ?? 0) * 0.5));
-        const fuelSaved = `${fuelSavedPct.toFixed(1)}%`;
-        return {
-            ok: true,
-            data: out,
-            ...out,
-            plannedArrival,
-            optimizedArrival,
-            fuelSaved,
-            fuelSavedPct,
-        };
+        return this.jit.status({
+            vesselId,
+            distanceNm: distanceNm !== undefined && distanceNm !== '' ? Number(distanceNm) : undefined,
+            speedKnots: speedKnots !== undefined && speedKnots !== '' ? Number(speedKnots) : undefined,
+            windowStartIso,
+            windowEndIso,
+        });
     }
 };
 exports.JitController = JitController;

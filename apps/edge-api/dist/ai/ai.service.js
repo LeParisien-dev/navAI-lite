@@ -25,7 +25,7 @@ function levelFromScore(score) {
 let AiService = AiService_1 = class AiService {
     logger = new common_1.Logger(AiService_1.name);
     constructor() {
-        this.logger.log('✅ AI Service initialisé (mocks hybrides déterministes + aléatoires)');
+        this.logger.log('AI Service initialisé (mocks hybrides déterministes + aléatoires)');
     }
     predictCongestion(portName) {
         if (portName) {

@@ -4,7 +4,7 @@ export declare class AuthService {
     private readonly usersService;
     constructor(usersService: UsersService);
     register(dto: RegisterDto): Promise<import("../users/user.entity").User>;
-    login(email: string, password: string): Promise<import("../users/user.entity").User | null>;
-    logout(userId: number): Promise<import("../users/user.entity").User | null>;
+    login(email: string, password: string): Promise<import("../users/user.entity").User>;
+    logout(userId: number): Promise<import("../users/user.entity").User>;
     connectedUsers(): Promise<import("../users/user.entity").User[]>;
 }

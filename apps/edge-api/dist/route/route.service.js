@@ -22,28 +22,50 @@ let RouteService = class RouteService {
     constructor(routeRepo) {
         this.routeRepo = routeRepo;
     }
-    async getRoute(userId = 1) {
+    sessions = new Map();
+    createSession(userId) {
         const ports = ["Le Havre", "New York", "Shanghai", "Hamburg", "Los Angeles", "Singapore"];
-        const from = ports[Math.floor(Math.random() * ports.length)];
-        let to = ports[Math.floor(Math.random() * ports.length)];
-        while (to === from) {
-            to = ports[Math.floor(Math.random() * ports.length)];
+        const origin = ports[Math.floor(Math.random() * ports.length)];
+        let destination = ports[Math.floor(Math.random() * ports.length)];
+        while (destination === origin) {
+            destination = ports[Math.floor(Math.random() * ports.length)];
         }
-        const distanceNm = 1000 + Math.floor(Math.random() * 7000);
-        const hours = Math.ceil(distanceNm / 20);
-        const eta = new Date(Date.now() + hours * 3600 * 1000);
-        const route = {
-            from,
-            to,
-            eta: eta.toISOString(),
-            distanceNm,
+        const totalDistanceNm = 3000 + Math.floor(Math.random() * 5000);
+        const speedKnots = 16 + Math.floor(Math.random() * 6);
+        const hours = totalDistanceNm / speedKnots;
+        const etaIso = new Date(Date.now() + hours * 3600 * 1000).toISOString();
+        const session = {
+            origin,
+            destination,
+            totalDistanceNm,
+            startTs: Date.now(),
+            speedKnots,
+            etaIso,
         };
-        await this.routeRepo.save(this.routeRepo.create({
-            userId,
-            origin: from,
-            destination: to,
-        }));
-        return route;
+        this.sessions.set(userId, session);
+        this.routeRepo
+            .save(this.routeRepo.create({ userId, origin, destination }))
+            .catch(() => { });
+        return session;
+    }
+    getSession(userId) {
+        return this.sessions.get(userId) ?? this.createSession(userId);
+    }
+    async getRoute(userId = 1) {
+        const s = this.getSession(userId);
+        const elapsedHours = (Date.now() - s.startTs) / 3_600_000;
+        const travelledNm = s.speedKnots * elapsedHours;
+        let remainingNm = Math.max(s.totalDistanceNm - travelledNm, 0);
+        if (remainingNm <= 0) {
+            this.sessions.delete(userId);
+            return this.getRoute(userId);
+        }
+        return {
+            origin: s.origin,
+            destination: s.destination,
+            eta: s.etaIso,
+            distanceNm: Math.round(remainingNm * 10) / 10
+        };
     }
 };
 exports.RouteService = RouteService;

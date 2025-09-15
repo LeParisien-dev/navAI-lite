@@ -10,6 +10,6 @@ export class RegisterDto {
     email: string;
 
     @IsString()
-    @MinLength(4)
+    @MinLength(6, { message: 'Le mot de passe doit contenir au moins 6 caractères' })
     password: string;
 }

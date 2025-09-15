@@ -15,55 +15,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
-const public_decorator_1 = require("../auth/public.decorator");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async register(body) {
-        return this.usersService.register(body.username, body.password);
+    async findAll() {
+        return this.usersService.findAll();
     }
-    async login(body) {
-        return this.usersService.login(body.username, body.password);
+    async findOne(id) {
+        return this.usersService.findOne(id);
     }
-    async logout(body) {
-        return this.usersService.logout(body.userId);
-    }
-    async getConnected() {
-        return this.usersService.getConnectedUsers();
+    async remove(id) {
+        return this.usersService.remove(id);
     }
 };
 exports.UsersController = UsersController;
 __decorate([
-    (0, public_decorator_1.Public)(),
-    (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "register", null);
-__decorate([
-    (0, public_decorator_1.Public)(),
-    (0, common_1.Post)('login'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "login", null);
-__decorate([
-    (0, common_1.Post)('logout'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "logout", null);
-__decorate([
-    (0, common_1.Get)('connected'),
+    (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "getConnected", null);
+], UsersController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "remove", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

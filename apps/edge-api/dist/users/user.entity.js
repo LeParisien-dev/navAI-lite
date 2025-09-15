@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)({ unique: true, length: 50 }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ select: false }),
     __metadata("design:type", String)
 ], User.prototype, "passwordHash", void 0);
 __decorate([
@@ -50,6 +50,6 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)('users')
 ], User);
 //# sourceMappingURL=user.entity.js.map

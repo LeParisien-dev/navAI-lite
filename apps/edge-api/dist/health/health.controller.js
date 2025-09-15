@@ -13,7 +13,10 @@ exports.HealthController = void 0;
 const common_1 = require("@nestjs/common");
 let HealthController = class HealthController {
     check() {
-        return { status: 'ok', timestamp: new Date().toISOString() };
+        return { status: 'ok', time: new Date().toISOString() };
+    }
+    ping() {
+        return { message: 'pong', time: new Date().toISOString() };
     }
 };
 exports.HealthController = HealthController;
@@ -23,6 +26,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], HealthController.prototype, "check", null);
+__decorate([
+    (0, common_1.Get)('ping'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], HealthController.prototype, "ping", null);
 exports.HealthController = HealthController = __decorate([
     (0, common_1.Controller)('health')
 ], HealthController);

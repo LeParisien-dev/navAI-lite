@@ -65,37 +65,18 @@ let UsersService = class UsersService {
         });
         return this.usersRepo.save(user);
     }
-    async create(dto) {
-        return this.createUser(dto);
+    async findAll() {
+        return this.usersRepo.find();
     }
-    async register(username, password) {
-        const hash = await bcrypt.hash(password, 10);
-        const user = this.usersRepo.create({
-            username,
-            email: `${username}@example.com`,
-            passwordHash: hash,
-        });
-        return this.usersRepo.save(user);
+    async findOne(id) {
+        return this.usersRepo.findOne({ where: { id } });
     }
-    async login(email, password) {
-        const user = await this.usersRepo.findOne({ where: { email } });
+    async remove(id) {
+        const user = await this.findOne(id);
         if (!user)
             return null;
-        const valid = await bcrypt.compare(password, user.passwordHash);
-        if (!valid)
-            return null;
-        user.isLoggedIn = true;
-        return this.usersRepo.save(user);
-    }
-    async logout(userId) {
-        const user = await this.usersRepo.findOne({ where: { id: userId } });
-        if (!user)
-            return null;
-        user.isLoggedIn = false;
-        return this.usersRepo.save(user);
-    }
-    async getConnectedUsers() {
-        return this.usersRepo.find({ where: { isLoggedIn: true } });
+        await this.usersRepo.remove(user);
+        return { deleted: true, id };
     }
     async findByUsername(username) {
         return this.usersRepo.findOne({ where: { username } });

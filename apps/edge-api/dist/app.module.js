@@ -12,7 +12,7 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const health_controller_1 = require("./health/health.controller");
+const health_module_1 = require("./health/health.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const weather_module_1 = require("./weather/weather.module");
@@ -22,6 +22,7 @@ const vision_module_1 = require("./vision/vision.module");
 const port_module_1 = require("./port/port.module");
 const simulator_module_1 = require("./simulator/simulator.module");
 const ai_module_1 = require("./ai/ai.module");
+console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,14 +35,15 @@ exports.AppModule = AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: process.env.DB_HOST,
-                port: parseInt(process.env.DB_PORT || '5432', 10),
-                username: process.env.DB_USER,
-                password: process.env.DB_PASS,
-                database: process.env.DB_NAME,
+                url: process.env.DATABASE_URL,
                 autoLoadEntities: true,
                 synchronize: true,
                 logging: true,
+                retryAttempts: 10,
+                retryDelay: 3000,
+                ssl: {
+                    rejectUnauthorized: false,
+                },
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
@@ -52,8 +54,9 @@ exports.AppModule = AppModule = __decorate([
             port_module_1.PortModule,
             simulator_module_1.SimulatorModule,
             ai_module_1.AiModule,
+            health_module_1.HealthModule,
         ],
-        controllers: [app_controller_1.AppController, health_controller_1.HealthController],
+        controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
 ], AppModule);

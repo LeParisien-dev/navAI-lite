@@ -9,10 +9,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
     constructor(
         @InjectRepository(User)
-        private usersRepo: Repository<User>,
+        private readonly usersRepo: Repository<User>,
     ) { }
 
-    // Méthode principale
+    // Création d’un utilisateur (utilisée lors d’un register par AuthService)
     async createUser(dto: CreateUserDto) {
         const hash = await bcrypt.hash(dto.password, 10);
         const user = this.usersRepo.create({
@@ -23,47 +23,25 @@ export class UsersService {
         return this.usersRepo.save(user);
     }
 
-    // [ALIAS] pour compatibilité avec AuthService
-    async create(dto: CreateUserDto) {
-        return this.createUser(dto);
+    // Récupérer tous les utilisateurs
+    async findAll() {
+        return this.usersRepo.find();
     }
 
-    // [ALIAS] pour compatibilité avec UsersController
-    async register(username: string, password: string) {
-        const hash = await bcrypt.hash(password, 10);
-        const user = this.usersRepo.create({
-            username,
-            email: `${username}@example.com`, // fallback si pas d'email fourni
-            passwordHash: hash,
-        });
-        return this.usersRepo.save(user);
+    // Récupérer un utilisateur par ID
+    async findOne(id: number) {
+        return this.usersRepo.findOne({ where: { id } });
     }
 
-    // Login (par email + password)
-    async login(email: string, password: string) {
-        const user = await this.usersRepo.findOne({ where: { email } });
+    // Supprimer un utilisateur
+    async remove(id: number) {
+        const user = await this.findOne(id);
         if (!user) return null;
-
-        const valid = await bcrypt.compare(password, user.passwordHash);
-        if (!valid) return null;
-
-        user.isLoggedIn = true;
-        return this.usersRepo.save(user);
+        await this.usersRepo.remove(user);
+        return { deleted: true, id };
     }
 
-    async logout(userId: number) {
-        const user = await this.usersRepo.findOne({ where: { id: userId } });
-        if (!user) return null;
-
-        user.isLoggedIn = false;
-        return this.usersRepo.save(user);
-    }
-
-    async getConnectedUsers() {
-        return this.usersRepo.find({ where: { isLoggedIn: true } });
-    }
-
-    // Recherche d'un utilisateur par username ou email
+    // Recherche d’un utilisateur par username ou email (utilisable par AuthService)
     async findByUsername(username: string) {
         return this.usersRepo.findOne({ where: { username } });
     }
