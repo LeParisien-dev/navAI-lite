@@ -18,7 +18,8 @@ export default function JitWidget() {
                 const res: JitData = await api("/jit");
                 setData(res);
                 setError(false);
-            } catch {
+            } catch (err) {
+                console.error("Erreur API jit:", err);
                 setError(true);
             } finally {
                 setLoading(false);
@@ -48,14 +49,14 @@ export default function JitWidget() {
 
             {/* Affichage ETA planifiée et optimisée */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs mb-3">
-                <div>📅 Planned:</div>
+                <div>Planned arrival:</div>
                 <div>
                     {data.plannedArrival
                         ? new Date(data.plannedArrival).toLocaleString()
                         : "—"}
                 </div>
 
-                <div>⚡ Optimized:</div>
+                <div>Optimized arrival:</div>
                 <div>
                     {data.optimizedArrival
                         ? new Date(data.optimizedArrival).toLocaleString()

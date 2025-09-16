@@ -18,14 +18,14 @@ export default function RouteWidget() {
             const res: RouteData = await api("/route");
             setData(res);
             setError(false);
-        } catch {
+        } catch (err) {
+            console.error("Erreur API route:", err);
             setError(true);
         } finally {
             setLoading(false);
         }
     }
 
-    // polling toutes les 5s
     useEffect(() => {
         loadRoute();
         const interval = setInterval(loadRoute, 5000);
@@ -35,7 +35,7 @@ export default function RouteWidget() {
     if (loading) {
         return (
             <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200 shadow-lg text-sm">
-                Loading route…
+                Loading route...
             </div>
         );
     }
@@ -52,11 +52,15 @@ export default function RouteWidget() {
         <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200 shadow-lg text-sm flex flex-col items-center">
             <h2 className="text-lg font-bold text-cyan-400 mb-3">Route</h2>
 
-            {/* Schéma simplifié : origine → destination */}
-            <div className="flex items-center justify-center gap-3 mb-3">
-                <span className="text-cyan-300 font-semibold">{data.origin ?? "—"}</span>
-                <span className="text-cyan-500">→</span>
-                <span className="text-cyan-300 font-semibold">{data.destination ?? "—"}</span>
+            {/* Origine / Destination */}
+            <div className="flex flex-col items-center mb-3">
+                <div className="text-cyan-300 font-semibold">
+                    Origin: {data.origin ?? "—"}
+                </div>
+                <div className="text-cyan-500 text-xs">to</div>
+                <div className="text-cyan-300 font-semibold">
+                    Destination: {data.destination ?? "—"}
+                </div>
             </div>
 
             {/* Détails */}

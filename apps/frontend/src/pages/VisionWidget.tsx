@@ -19,7 +19,7 @@ export default function VisionWidget() {
             setVision(data);
             setError(false);
         } catch (err) {
-            console.error("Erreur fetch Vision:", err);
+            console.error("Erreur API vision:", err);
             setError(true);
         } finally {
             setLoading(false);
@@ -52,7 +52,7 @@ export default function VisionWidget() {
         <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200 shadow-lg text-sm flex flex-col items-center overflow-y-auto max-h-64">
             <h2 className="text-lg font-bold text-cyan-400 mb-3">Vision</h2>
 
-            {/* Cercle viseur plus petit */}
+            {/* Cercle viseur */}
             <div className="relative w-20 h-20 border-2 border-cyan-500/50 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <span className="text-xs text-cyan-300 text-center px-2">
                     {vision.detectedObjects}
@@ -61,7 +61,7 @@ export default function VisionWidget() {
 
             {/* Données */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                <div>📷 Camera:</div>
+                <div>Camera:</div>
                 <div>{vision.cameraId}</div>
 
                 <div>Objet:</div>

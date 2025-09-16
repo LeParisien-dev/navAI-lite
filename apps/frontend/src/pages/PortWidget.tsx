@@ -19,7 +19,8 @@ export default function PortWidget() {
                 const res: PortRow[] = await api("/port");
                 setRows(res ?? []);
                 setError(false);
-            } catch {
+            } catch (err) {
+                console.error("Erreur API port:", err);
                 setError(true);
             } finally {
                 setLoading(false);
@@ -30,7 +31,7 @@ export default function PortWidget() {
     if (loading) {
         return (
             <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200 shadow-lg text-sm">
-                Loading ports...
+                Loading port...
             </div>
         );
     }
@@ -46,14 +47,14 @@ export default function PortWidget() {
     if (!rows.length) {
         return (
             <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200/70 shadow-lg text-sm">
-                Aucune donnée
+                Aucune donnée disponible
             </div>
         );
     }
 
     return (
         <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-cyan-200 shadow-lg text-sm flex flex-col">
-            <h2 className="text-lg font-bold text-cyan-400 mb-3">Ports</h2>
+            <h2 className="text-lg font-bold text-cyan-400 mb-3">Port</h2>
 
             <div className="max-h-40 overflow-y-auto pr-1 space-y-2">
                 {rows.map((r, idx) => (
@@ -68,7 +69,7 @@ export default function PortWidget() {
                             ~ {r.waitHours} h d’attente
                             {r.updatedAt && (
                                 <span className="ml-2 text-cyan-400/70">
-                                    • maj {r.updatedAt}
+                                    maj {r.updatedAt}
                                 </span>
                             )}
                         </div>

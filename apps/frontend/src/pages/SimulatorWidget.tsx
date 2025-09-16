@@ -14,14 +14,13 @@ export default function SimulatorWidget() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    // factorisation + refresh auto comme VisionWidget
     async function loadSimulator() {
         try {
             const res: SimData = await api("/simulator");
             setData(res);
             setError(false);
         } catch (err) {
-            console.error("Erreur fetch Simulator:", err);
+            console.error("Erreur API simulator:", err);
             setError(true);
         } finally {
             setLoading(false);
@@ -45,7 +44,7 @@ export default function SimulatorWidget() {
     if (error || !data) {
         return (
             <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl p-4 text-red-300 shadow-lg text-sm">
-                Erreur simulateur
+                Erreur simulator
             </div>
         );
     }
@@ -63,13 +62,13 @@ export default function SimulatorWidget() {
 
             {/* Infos principales */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                <div>⚡ Engine:</div>
+                <div>Engine:</div>
                 <div>{data.engineStatus ?? "—"}</div>
 
-                <div>⛽ Fuel:</div>
+                <div>Fuel level:</div>
                 <div>{data.fuelLevel ?? "—"}</div>
 
-                <div>📍 Position:</div>
+                <div>Position:</div>
                 <div>
                     {data.position
                         ? `${data.position.lat.toFixed(3)}, ${data.position.lon.toFixed(3)}`

@@ -1,43 +1,77 @@
 import { useEffect, useState } from "react";
-import { fetchUsers, createUser, updateUser, deleteUser } from "../api";
+import { api } from "../lib/http";
+
+interface User {
+    id: number;
+    email: string;
+}
 
 export default function Users() {
-    const [users, setUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [editingId, setEditingId] = useState<number | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    async function loadUsers() {
+        try {
+            const data: User[] = await api("/users");
+            setUsers(data ?? []);
+            setError(null);
+        } catch (err: any) {
+            console.error("Erreur API users:", err);
+            setError("Impossible de charger les utilisateurs");
+        }
+    }
 
     useEffect(() => {
-        fetchUsers().then(setUsers);
+        loadUsers();
     }, []);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (editingId) {
-            await updateUser(editingId, email, password);
-            setEditingId(null);
-        } else {
-            await createUser(email, password);
+        try {
+            if (editingId) {
+                await api(`/users/${editingId}`, {
+                    method: "PUT",
+                    body: JSON.stringify({ email, password }),
+                });
+                setEditingId(null);
+            } else {
+                await api("/users", {
+                    method: "POST",
+                    body: JSON.stringify({ email, password }),
+                });
+            }
+            setEmail("");
+            setPassword("");
+            loadUsers();
+        } catch (err: any) {
+            console.error("Erreur API submit user:", err);
+            setError("Échec sauvegarde utilisateur");
         }
-        setEmail("");
-        setPassword("");
-        setUsers(await fetchUsers());
     };
 
-    const handleEdit = (user: any) => {
+    const handleEdit = (user: User) => {
         setEditingId(user.id);
         setEmail(user.email);
-        setPassword(""); // on ne pré-remplit pas le password
+        setPassword(""); // pas de pré-remplissage du password
     };
 
     const handleDelete = async (id: number) => {
-        await deleteUser(id);
-        setUsers(await fetchUsers());
+        try {
+            await api(`/users/${id}`, { method: "DELETE" });
+            loadUsers();
+        } catch (err: any) {
+            console.error("Erreur API delete user:", err);
+            setError("Échec suppression utilisateur");
+        }
     };
 
     return (
         <div style={{ padding: "1rem" }}>
             <h2>Users</h2>
+
             <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>
                 <input
                     value={email}
@@ -54,18 +88,31 @@ export default function Users() {
                     {editingId ? "Update User" : "Add User"}
                 </button>
                 {editingId && (
-                    <button type="button" onClick={() => { setEditingId(null); setEmail(""); setPassword(""); }}>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setEditingId(null);
+                            setEmail("");
+                            setPassword("");
+                        }}
+                    >
                         Cancel
                     </button>
                 )}
             </form>
 
+            {error && <p style={{ color: "crimson" }}>{error}</p>}
+
             <ul>
                 {users.map((u) => (
                     <li key={u.id}>
                         {u.email}
-                        <button onClick={() => handleEdit(u)} style={{ marginLeft: "0.5rem" }}>Edit</button>
-                        <button onClick={() => handleDelete(u.id)} style={{ marginLeft: "0.5rem" }}>Delete</button>
+                        <button onClick={() => handleEdit(u)} style={{ marginLeft: "0.5rem" }}>
+                            Edit
+                        </button>
+                        <button onClick={() => handleDelete(u.id)} style={{ marginLeft: "0.5rem" }}>
+                            Delete
+                        </button>
                     </li>
                 ))}
             </ul>

@@ -1,11 +1,12 @@
-export const API_URL =
-    import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+// apps/frontend/src/lib/http.ts
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 function getToken(): string | null {
     return localStorage.getItem("token");
 }
 
-export async function api(path: string, options: RequestInit = {}) {
+export async function api<T>(path: string, options: RequestInit = {}): Promise<T | null> {
     const token = getToken();
 
     const headers = new Headers(options.headers || {});
@@ -31,5 +32,5 @@ export async function api(path: string, options: RequestInit = {}) {
     // Si pas de body (204), on retourne null
     if (res.status === 204) return null;
 
-    return res.json();
+    return res.json() as Promise<T>;
 }

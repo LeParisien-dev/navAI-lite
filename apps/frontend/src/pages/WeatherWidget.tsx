@@ -26,7 +26,7 @@ export default function WeatherWidget() {
             setData(res);
             setError(false);
         } catch (err) {
-            console.error("Erreur fetch Weather:", err);
+            console.error("Erreur API weather:", err);
             setError(true);
         } finally {
             setLoading(false);
@@ -87,10 +87,10 @@ export default function WeatherWidget() {
 
             {/* Données textuelles */}
             <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs text-cyan-200">
-                {data.location && (<><div>📍</div><div>{data.location}</div></>)}
-                {data.waveHeight && (<><div>🌊</div><div>{data.waveHeight}</div></>)}
-                {data.temperature && (<><div>🌡</div><div>{data.temperature}</div></>)}
-                {data.visibility && (<><div>👁</div><div>{data.visibility}</div></>)}
+                {data.location && (<><div>Location:</div><div>{data.location}</div></>)}
+                {data.waveHeight && (<><div>Wave height:</div><div>{data.waveHeight}</div></>)}
+                {data.temperature && (<><div>Temperature:</div><div>{data.temperature}</div></>)}
+                {data.visibility && (<><div>Visibility:</div><div>{data.visibility}</div></>)}
             </div>
 
             {data.timestamp && (
