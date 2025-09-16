@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "echo \"Choisir un workspace (frontend ou edge-api)\"",
     "build": "pnpm --filter frontend build && pnpm --filter edge-api build",
-    "start": "pnpm --filter edge-api start:prod",
+    "start": "pnpm --filter edge-api build && pnpm --filter edge-api start:prod",
     "test": "echo \"No tests configured\" && exit 0"
   },
   "dependencies": {
