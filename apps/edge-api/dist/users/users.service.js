@@ -82,7 +82,11 @@ let UsersService = class UsersService {
         return this.usersRepo.findOne({ where: { username } });
     }
     async findByEmail(email) {
-        return this.usersRepo.findOne({ where: { email } });
+        return this.usersRepo
+            .createQueryBuilder('user')
+            .addSelect('user.passwordHash')
+            .where('user.email = :email', { email })
+            .getOne();
     }
 };
 exports.UsersService = UsersService;

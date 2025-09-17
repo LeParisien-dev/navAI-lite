@@ -52,53 +52,29 @@ let AuthService = class AuthService {
         this.usersService = usersService;
     }
     async register(dto) {
-        try {
-            return await this.usersService.createUser(dto);
-        }
-        catch (err) {
-            console.error('Erreur dans AuthService.register:', err);
-            throw new common_1.InternalServerErrorException('Erreur register: ' + err.message);
-        }
+        return this.usersService.createUser(dto);
     }
     async login(email, password) {
-        try {
-            const user = await this.usersService.findByEmail(email);
-            if (!user) {
-                throw new common_1.UnauthorizedException('Utilisateur introuvable');
-            }
-            const valid = await bcrypt.compare(password, user.passwordHash);
-            if (!valid) {
-                throw new common_1.UnauthorizedException('Mot de passe incorrect');
-            }
-            return user;
+        const user = await this.usersService.findByEmail(email);
+        if (!user) {
+            throw new common_1.UnauthorizedException('Utilisateur introuvable');
         }
-        catch (err) {
-            console.error('Erreur dans AuthService.login:', err);
-            throw new common_1.InternalServerErrorException('Erreur login: ' + err.message);
+        const valid = await bcrypt.compare(password, user.passwordHash);
+        if (!valid) {
+            throw new common_1.UnauthorizedException('Mot de passe incorrect');
         }
+        return user;
     }
     async logout(userId) {
-        try {
-            const user = await this.usersService.findOne(userId);
-            if (!user) {
-                throw new common_1.UnauthorizedException('Utilisateur introuvable');
-            }
-            user.isLoggedIn = false;
-            return this.usersService['usersRepo'].save(user);
+        const user = await this.usersService.findOne(userId);
+        if (!user) {
+            throw new common_1.UnauthorizedException('Utilisateur introuvable');
         }
-        catch (err) {
-            console.error('Erreur dans AuthService.logout:', err);
-            throw new common_1.InternalServerErrorException('Erreur logout: ' + err.message);
-        }
+        user.isLoggedIn = false;
+        return this.usersService['usersRepo'].save(user);
     }
     async connectedUsers() {
-        try {
-            return this.usersService['usersRepo'].find({ where: { isLoggedIn: true } });
-        }
-        catch (err) {
-            console.error('Erreur dans AuthService.connectedUsers:', err);
-            throw new common_1.InternalServerErrorException('Erreur connectedUsers: ' + err.message);
-        }
+        return this.usersService['usersRepo'].find({ where: { isLoggedIn: true } });
     }
 };
 exports.AuthService = AuthService;

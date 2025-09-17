@@ -12,7 +12,7 @@ export class UsersService {
         private readonly usersRepo: Repository<User>,
     ) { }
 
-    // Création d’un utilisateur (utilisée lors d’un register par AuthService)
+    // Création d’un utilisateur (hash du password ici)
     async createUser(dto: CreateUserDto) {
         const hash = await bcrypt.hash(dto.password, 10);
         const user = this.usersRepo.create({
@@ -41,12 +41,17 @@ export class UsersService {
         return { deleted: true, id };
     }
 
-    // Recherche d’un utilisateur par username ou email (utilisable par AuthService)
+    // Recherche d’un utilisateur par username
     async findByUsername(username: string) {
         return this.usersRepo.findOne({ where: { username } });
     }
 
+    // Recherche d’un utilisateur par email → inclut passwordHash
     async findByEmail(email: string) {
-        return this.usersRepo.findOne({ where: { email } });
+        return this.usersRepo
+            .createQueryBuilder('user')
+            .addSelect('user.passwordHash')
+            .where('user.email = :email', { email })
+            .getOne();
     }
 }

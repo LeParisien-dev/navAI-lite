@@ -1,6 +1,5 @@
 import {
     Injectable,
-    InternalServerErrorException,
     UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
@@ -13,56 +12,36 @@ export class AuthService {
 
     // Inscription
     async register(dto: RegisterDto) {
-        try {
-            return await this.usersService.createUser(dto);
-        } catch (err: any) {
-            console.error('Erreur dans AuthService.register:', err);
-            throw new InternalServerErrorException('Erreur register: ' + err.message);
-        }
+        return this.usersService.createUser(dto);
     }
 
     // Connexion
     async login(email: string, password: string) {
-        try {
-            const user = await this.usersService.findByEmail(email);
-            if (!user) {
-                throw new UnauthorizedException('Utilisateur introuvable');
-            }
-
-            const valid = await bcrypt.compare(password, user.passwordHash);
-            if (!valid) {
-                throw new UnauthorizedException('Mot de passe incorrect');
-            }
-
-            return user;
-        } catch (err: any) {
-            console.error('Erreur dans AuthService.login:', err);
-            throw new InternalServerErrorException('Erreur login: ' + err.message);
+        const user = await this.usersService.findByEmail(email);
+        if (!user) {
+            throw new UnauthorizedException('Utilisateur introuvable');
         }
+
+        const valid = await bcrypt.compare(password, user.passwordHash);
+        if (!valid) {
+            throw new UnauthorizedException('Mot de passe incorrect');
+        }
+
+        return user;
     }
 
-    // Déconnexion (si tu gardes un flag isLoggedIn)
+    // Déconnexion
     async logout(userId: number) {
-        try {
-            const user = await this.usersService.findOne(userId);
-            if (!user) {
-                throw new UnauthorizedException('Utilisateur introuvable');
-            }
-            user.isLoggedIn = false;
-            return this.usersService['usersRepo'].save(user); // accès direct au repo
-        } catch (err: any) {
-            console.error('Erreur dans AuthService.logout:', err);
-            throw new InternalServerErrorException('Erreur logout: ' + err.message);
+        const user = await this.usersService.findOne(userId);
+        if (!user) {
+            throw new UnauthorizedException('Utilisateur introuvable');
         }
+        user.isLoggedIn = false;
+        return this.usersService['usersRepo'].save(user);
     }
 
-    // Liste des utilisateurs connectés (optionnelle)
+    // Liste des utilisateurs connectés
     async connectedUsers() {
-        try {
-            return this.usersService['usersRepo'].find({ where: { isLoggedIn: true } });
-        } catch (err: any) {
-            console.error('Erreur dans AuthService.connectedUsers:', err);
-            throw new InternalServerErrorException('Erreur connectedUsers: ' + err.message);
-        }
+        return this.usersService['usersRepo'].find({ where: { isLoggedIn: true } });
     }
 }
