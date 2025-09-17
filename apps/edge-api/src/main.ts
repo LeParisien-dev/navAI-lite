@@ -4,10 +4,10 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Global prefix -> toutes les routes seront sous /api
+  // ✅ Prefix global (important pour que toutes les routes soient sous /api)
   app.setGlobalPrefix('api');
 
-  // CORS
+  // ✅ Activer CORS (utile pour ton frontend Vercel → backend Render)
   app.enableCors({
     origin: (origin, cb) => cb(null, true),
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -16,9 +16,11 @@ async function bootstrap() {
     maxAge: 600,
   });
 
-  const port = process.env.PORT || 3000;
-  await app.listen(port, '0.0.0.0', () => {
-    console.log(`Edge API running on port ${port}`);
-  });
+  // ✅ Port Render (variable d'env imposée) + écoute sur 0.0.0.0
+  const port = Number(process.env.PORT) || 3000;
+  await app.listen(port, '0.0.0.0');
+
+  // ✅ Log clair pour Render logs
+  console.log(`[edge-api] Listening on http://0.0.0.0:${port}/api/health`);
 }
 bootstrap();

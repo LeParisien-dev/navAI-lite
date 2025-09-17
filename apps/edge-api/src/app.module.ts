@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HealthModule } from './health/health.module';
 
+import { HealthModule } from './health/health.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { WeatherModule } from './weather/weather.module';
@@ -16,7 +16,7 @@ import { PortModule } from './port/port.module';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AiModule } from './ai/ai.module';
 
-console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
+console.log('>>> DATABASE_URL used:', process.env.DATABASE_URL);
 
 @Module({
   imports: [
@@ -24,7 +24,6 @@ console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
       isGlobal: true,
       envFilePath: '.env',
     }),
-
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
@@ -38,6 +37,7 @@ console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
       },
     }),
 
+    // ✅ Tous les modules métiers
     UsersModule,
     AuthModule,
     WeatherModule,
@@ -47,7 +47,7 @@ console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
     PortModule,
     SimulatorModule,
     AiModule,
-    HealthModule,
+    HealthModule, // ✅ gère HealthController
   ],
   controllers: [AppController],
   providers: [AppService],
