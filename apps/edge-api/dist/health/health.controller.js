@@ -19,11 +19,17 @@ let HealthController = class HealthController {
             timestamp: new Date().toISOString(),
         };
     }
+    checkHead() {
+        return;
+    }
     ping() {
         return {
             message: 'pong',
             timestamp: new Date().toISOString(),
         };
+    }
+    pingHead() {
+        return;
     }
 };
 exports.HealthController = HealthController;
@@ -34,11 +40,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], HealthController.prototype, "check", null);
 __decorate([
+    (0, common_1.Head)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], HealthController.prototype, "checkHead", null);
+__decorate([
     (0, common_1.Get)('ping'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], HealthController.prototype, "ping", null);
+__decorate([
+    (0, common_1.Head)('ping'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], HealthController.prototype, "pingHead", null);
 exports.HealthController = HealthController = __decorate([
     (0, common_1.Controller)('health')
 ], HealthController);

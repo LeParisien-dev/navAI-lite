@@ -4,8 +4,10 @@ export declare class HealthController {
         uptime: number;
         timestamp: string;
     };
+    checkHead(): void;
     ping(): {
         message: string;
         timestamp: string;
     };
+    pingHead(): void;
 }
