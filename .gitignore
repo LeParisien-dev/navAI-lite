@@ -9,8 +9,6 @@ package-lock.json
 yarn.lock
 .pnpm-store/
 
-# Frontend (React/Vite → on garde dist pour GitHub Pages)
-# (donc pas de règle globale dist/)
 
 build/
 .next/

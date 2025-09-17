@@ -59,6 +59,5 @@ __decorate([
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
-        jwt_1.JwtService])
+    jwt_1.JwtService])
 ], AuthController);
-//# sourceMappingURL=auth.controller.js.map

@@ -32,4 +32,3 @@ __decorate([
     (0, class_validator_1.MinLength)(6, { message: 'Le mot de passe doit contenir au moins 6 caractères' }),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "password", void 0);
-//# sourceMappingURL=register.dto.js.map

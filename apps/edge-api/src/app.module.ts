@@ -29,7 +29,7 @@ console.log('>>> DATABASE_SSL used:', process.env.DATABASE_SSL);
       type: 'postgres',
       url: process.env.DATABASE_URL,
       autoLoadEntities: true,
-      synchronize: true, // ⚠️ à désactiver en prod réelle
+      synchronize: true, // à désactiver en prod réelle
       logging: true,
       retryAttempts: 10,
       retryDelay: 3000,
@@ -39,7 +39,7 @@ console.log('>>> DATABASE_SSL used:', process.env.DATABASE_SSL);
           : false,
     }),
 
-    // ✅ Modules métiers
+    // Modules métiers
     UsersModule,
     AuthModule,
     WeatherModule,

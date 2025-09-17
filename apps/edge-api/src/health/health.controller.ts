@@ -2,7 +2,7 @@ import { Controller, Get, Head } from '@nestjs/common';
 
 @Controller('health')
 export class HealthController {
-    // ✅ Endpoint principal : /api/health
+    // Endpoint principal : /api/health
     @Get()
     check() {
         return {
@@ -12,13 +12,13 @@ export class HealthController {
         };
     }
 
-    // ✅ HEAD pour /api/health (UptimeRobot → 200 OK)
+    // HEAD pour /api/health (UptimeRobot → 200 OK)
     @Head()
     checkHead() {
         return; // pas de body, juste 200 OK
     }
 
-    // ✅ Endpoint secondaire : /api/health/ping
+    // Endpoint secondaire : /api/health/ping
     @Get('ping')
     ping() {
         return {
@@ -27,7 +27,7 @@ export class HealthController {
         };
     }
 
-    // ✅ HEAD pour /api/health/ping (UptimeRobot → 200 OK)
+    // HEAD pour /api/health/ping (UptimeRobot → 200 OK)
     @Head('ping')
     pingHead() {
         return; // pas de body, juste 200 OK

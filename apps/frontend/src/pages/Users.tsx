@@ -16,12 +16,12 @@ export default function Users() {
     async function loadUsers() {
         try {
             const data = await api<User[]>("/users");
-            setUsers(data ?? []); // <= [MODIF] on force [] si null
+            setUsers(data ?? []);
             setError(null);
         } catch (err: any) {
             console.error("Erreur API users:", err);
             setError("Impossible de charger les utilisateurs");
-            setUsers([]); // <= [MODIF] fallback tableau vide
+            setUsers([]);
         }
     }
 

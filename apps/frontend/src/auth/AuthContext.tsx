@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             body: JSON.stringify({ email, password }),
         });
 
-        const access = resp?.access_token; // resp peut être null
+        const access = resp?.access_token;
         if (!access) throw new Error("Token manquant dans la réponse.");
         localStorage.setItem("token", access);
         setToken(access);

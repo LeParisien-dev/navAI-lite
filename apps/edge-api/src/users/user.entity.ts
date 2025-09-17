@@ -17,7 +17,7 @@ export class User {
     @Column({ unique: true })
     email: string;
 
-    @Column({ select: false, length: 255 }) // bcrypt hash (60+ chars), exclu par défaut
+    @Column({ select: false, length: 255 })
     passwordHash: string;
 
     @Column({ default: false })
