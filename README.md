@@ -18,6 +18,11 @@ En somme : une **preuve de compétences full-stack AI engineer** qui illustre la
 ---
 
 ## Demo
+
+- **Frontend (Vercel)** : [https://navai-lite-frontend.vercel.app/](https://navai-lite-frontend.vercel.app/)  
+- **Backend API (Render)** : [https://edge-api-fhqf.onrender.com/api/health/ping](https://edge-api-fhqf.onrender.com/api/health/ping)  
+
+
 <figure>
   <img src="docs/dashboard-widgets.png"
        alt="Navai-Lite — Dashboard avec widgets météo, vision, route, AI et indicateurs en temps quasi réel" />
