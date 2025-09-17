@@ -1,9 +1,7 @@
-// apps/frontend/src/auth/AuthContext.tsx
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../lib/http";
 
-// [AJOUT] Type strict pour la réponse de /auth/login
 type LoginResponse = {
     access_token: string;
 };
@@ -22,21 +20,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
     const navigate = useNavigate();
 
+    const logout = useCallback(() => {
+        localStorage.removeItem("token");
+        setToken(null);
+        navigate("/");
+    }, [navigate]);
+
     // Déconnexion globale si 401
     useEffect(() => {
         const onUnauthorized = () => logout();
         window.addEventListener("auth:unauthorized", onUnauthorized);
         return () => window.removeEventListener("auth:unauthorized", onUnauthorized);
-    }, []);
+    }, [logout]);
 
     const login = useCallback(async (email: string, password: string) => {
-        // [MODIF] typage strict de la réponse
         const resp = await api<LoginResponse>("/auth/login", {
             method: "POST",
             body: JSON.stringify({ email, password }),
         });
 
-        const access = resp?.access_token;
+        const access = resp?.access_token; // resp peut être null
         if (!access) throw new Error("Token manquant dans la réponse.");
         localStorage.setItem("token", access);
         setToken(access);
@@ -52,12 +55,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
         [login]
     );
-
-    const logout = useCallback(() => {
-        localStorage.removeItem("token");
-        setToken(null);
-        navigate("/");
-    }, [navigate]);
 
     const value = useMemo(
         () => ({

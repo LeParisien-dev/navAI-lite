@@ -15,12 +15,13 @@ export default function Users() {
 
     async function loadUsers() {
         try {
-            const data: User[] = await api("/users");
-            setUsers(data ?? []);
+            const data = await api<User[]>("/users");
+            setUsers(data ?? []); // <= [MODIF] on force [] si null
             setError(null);
         } catch (err: any) {
             console.error("Erreur API users:", err);
             setError("Impossible de charger les utilisateurs");
+            setUsers([]); // <= [MODIF] fallback tableau vide
         }
     }
 
@@ -28,7 +29,7 @@ export default function Users() {
         loadUsers();
     }, []);
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             if (editingId) {
@@ -107,10 +108,16 @@ export default function Users() {
                 {users.map((u) => (
                     <li key={u.id}>
                         {u.email}
-                        <button onClick={() => handleEdit(u)} style={{ marginLeft: "0.5rem" }}>
+                        <button
+                            onClick={() => handleEdit(u)}
+                            style={{ marginLeft: "0.5rem" }}
+                        >
                             Edit
                         </button>
-                        <button onClick={() => handleDelete(u.id)} style={{ marginLeft: "0.5rem" }}>
+                        <button
+                            onClick={() => handleDelete(u.id)}
+                            style={{ marginLeft: "0.5rem" }}
+                        >
                             Delete
                         </button>
                     </li>
