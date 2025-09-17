@@ -21,9 +21,9 @@ export default function WeatherWidget() {
 
     async function loadWeather() {
         try {
-            const res: WeatherData = await api("/weather");
-            console.log("JSON reçu Weather:", res);
-            setData(res);
+            // [MODIF] typage strict avec WeatherData | null
+            const res: WeatherData | null = await api("/weather");
+            if (res) setData(res);
             setError(false);
         } catch (err) {
             console.error("Erreur API weather:", err);

@@ -1,12 +1,18 @@
+// apps/frontend/src/auth/AuthContext.tsx
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../lib/http";
+
+// [AJOUT] Type strict pour la réponse de /auth/login
+type LoginResponse = {
+    access_token: string;
+};
 
 type AuthContextValue = {
     token: string | null;
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
-    register: (username: string, email: string, password: string) => Promise<void>; // [MODIF]
+    register: (username: string, email: string, password: string) => Promise<void>;
     logout: () => void;
 };
 
@@ -24,11 +30,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const login = useCallback(async (email: string, password: string) => {
-        const resp = await api("/auth/login", {
+        // [MODIF] typage strict de la réponse
+        const resp = await api<LoginResponse>("/auth/login", {
             method: "POST",
             body: JSON.stringify({ email, password }),
         });
-        const access = resp?.access_token as string;
+
+        const access = resp?.access_token;
         if (!access) throw new Error("Token manquant dans la réponse.");
         localStorage.setItem("token", access);
         setToken(access);

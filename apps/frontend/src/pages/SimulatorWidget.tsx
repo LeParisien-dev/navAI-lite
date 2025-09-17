@@ -16,8 +16,9 @@ export default function SimulatorWidget() {
 
     async function loadSimulator() {
         try {
-            const res: SimData = await api("/simulator");
-            setData(res);
+            // [MODIF] Typage strict : SimData | null
+            const res: SimData | null = await api("/simulator");
+            if (res) setData(res);
             setError(false);
         } catch (err) {
             console.error("Erreur API simulator:", err);

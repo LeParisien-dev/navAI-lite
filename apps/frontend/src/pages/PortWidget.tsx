@@ -16,7 +16,8 @@ export default function PortWidget() {
     useEffect(() => {
         (async () => {
             try {
-                const res: PortRow[] = await api("/port");
+                // [MODIF] typage strict avec PortRow[] | null
+                const res: PortRow[] | null = await api("/port");
                 setRows(res ?? []);
                 setError(false);
             } catch (err) {

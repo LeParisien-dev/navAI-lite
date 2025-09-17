@@ -15,8 +15,9 @@ export default function RouteWidget() {
 
     async function loadRoute() {
         try {
-            const res: RouteData = await api("/route");
-            setData(res);
+            // [MODIF] typage strict avec RouteData | null
+            const res: RouteData | null = await api("/route");
+            if (res) setData(res);
             setError(false);
         } catch (err) {
             console.error("Erreur API route:", err);

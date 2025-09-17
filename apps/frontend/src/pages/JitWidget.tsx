@@ -15,8 +15,9 @@ export default function JitWidget() {
     useEffect(() => {
         (async () => {
             try {
-                const res: JitData = await api("/jit");
-                setData(res);
+                // [MODIF] typage strict avec JitData | null
+                const res: JitData | null = await api("/jit");
+                if (res) setData(res);
                 setError(false);
             } catch (err) {
                 console.error("Erreur API jit:", err);

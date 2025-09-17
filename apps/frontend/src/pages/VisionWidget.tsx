@@ -15,8 +15,9 @@ export default function VisionWidget() {
 
     async function loadVision() {
         try {
-            const data: VisionData = await api("/vision");
-            setVision(data);
+            // [MODIF] réponse typée comme VisionData | null
+            const data: VisionData | null = await api("/vision");
+            if (data) setVision(data);
             setError(false);
         } catch (err) {
             console.error("Erreur API vision:", err);

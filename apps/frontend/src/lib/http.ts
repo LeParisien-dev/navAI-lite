@@ -1,6 +1,5 @@
-// apps/frontend/src/lib/http.ts
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+export const API_URL =
+    import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 function getToken(): string | null {
     return localStorage.getItem("token");
