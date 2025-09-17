@@ -39,7 +39,7 @@ console.log('>>> DATABASE_SSL used:', process.env.DATABASE_SSL);
           : false,
     }),
 
-    // ✅ Tous les modules métiers
+    // ✅ Modules métiers
     UsersModule,
     AuthModule,
     WeatherModule,
