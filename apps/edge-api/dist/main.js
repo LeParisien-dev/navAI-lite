@@ -12,10 +12,9 @@ async function bootstrap() {
         credentials: true,
         maxAge: 600,
     });
-    const port = process.env.PORT || 3000;
-    await app.listen(port, '0.0.0.0', () => {
-        console.log(`Edge API running on port ${port}`);
-    });
+    const port = Number(process.env.PORT) || 3000;
+    await app.listen(port, '0.0.0.0');
+    console.log(`[edge-api] Listening on http://0.0.0.0:${port}/api/health`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

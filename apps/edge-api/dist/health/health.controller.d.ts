@@ -1,10 +1,11 @@
 export declare class HealthController {
     check(): {
         status: string;
-        time: string;
+        uptime: number;
+        timestamp: string;
     };
     ping(): {
         message: string;
-        time: string;
+        timestamp: string;
     };
 }

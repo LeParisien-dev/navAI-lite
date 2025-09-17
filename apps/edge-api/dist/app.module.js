@@ -22,7 +22,7 @@ const vision_module_1 = require("./vision/vision.module");
 const port_module_1 = require("./port/port.module");
 const simulator_module_1 = require("./simulator/simulator.module");
 const ai_module_1 = require("./ai/ai.module");
-console.log(">>> DATABASE_URL used:", process.env.DATABASE_URL);
+console.log('>>> DATABASE_URL used:', process.env.DATABASE_URL);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;

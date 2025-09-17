@@ -13,10 +13,17 @@ exports.HealthController = void 0;
 const common_1 = require("@nestjs/common");
 let HealthController = class HealthController {
     check() {
-        return { status: 'ok', time: new Date().toISOString() };
+        return {
+            status: 'ok',
+            uptime: process.uptime(),
+            timestamp: new Date().toISOString(),
+        };
     }
     ping() {
-        return { message: 'pong', time: new Date().toISOString() };
+        return {
+            message: 'pong',
+            timestamp: new Date().toISOString(),
+        };
     }
 };
 exports.HealthController = HealthController;
