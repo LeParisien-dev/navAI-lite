@@ -23,6 +23,7 @@ const port_module_1 = require("./port/port.module");
 const simulator_module_1 = require("./simulator/simulator.module");
 const ai_module_1 = require("./ai/ai.module");
 console.log('>>> DATABASE_URL used:', process.env.DATABASE_URL);
+console.log('>>> DATABASE_SSL used:', process.env.DATABASE_SSL);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -41,9 +42,9 @@ exports.AppModule = AppModule = __decorate([
                 logging: true,
                 retryAttempts: 10,
                 retryDelay: 3000,
-                ssl: {
-                    rejectUnauthorized: false,
-                },
+                ssl: process.env.DATABASE_SSL === 'true'
+                    ? { rejectUnauthorized: false }
+                    : false,
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,

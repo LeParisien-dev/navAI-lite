@@ -17,6 +17,7 @@ import { SimulatorModule } from './simulator/simulator.module';
 import { AiModule } from './ai/ai.module';
 
 console.log('>>> DATABASE_URL used:', process.env.DATABASE_URL);
+console.log('>>> DATABASE_SSL used:', process.env.DATABASE_SSL);
 
 @Module({
   imports: [
@@ -32,9 +33,10 @@ console.log('>>> DATABASE_URL used:', process.env.DATABASE_URL);
       logging: true,
       retryAttempts: 10,
       retryDelay: 3000,
-      ssl: {
-        rejectUnauthorized: false, // ✅ obligatoire avec Render Postgres
-      },
+      ssl:
+        process.env.DATABASE_SSL === 'true'
+          ? { rejectUnauthorized: false }
+          : false,
     }),
 
     // ✅ Tous les modules métiers
@@ -47,7 +49,7 @@ console.log('>>> DATABASE_URL used:', process.env.DATABASE_URL);
     PortModule,
     SimulatorModule,
     AiModule,
-    HealthModule, // ✅ gère HealthController
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
