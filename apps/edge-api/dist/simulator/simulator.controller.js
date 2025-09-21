@@ -16,7 +16,6 @@ exports.SimulatorController = void 0;
 const common_1 = require("@nestjs/common");
 const simulator_service_1 = require("./simulator.service");
 let SimulatorController = class SimulatorController {
-    simulatorService;
     constructor(simulatorService) {
         this.simulatorService = simulatorService;
     }

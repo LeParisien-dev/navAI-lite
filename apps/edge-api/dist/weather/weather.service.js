@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherService = void 0;
 const common_1 = require("@nestjs/common");
 let WeatherService = class WeatherService {
-    lastWeather;
     constructor() {
         this.generateWeather();
         setInterval(() => this.generateWeather(), 5000);

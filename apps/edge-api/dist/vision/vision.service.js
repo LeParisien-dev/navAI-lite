@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VisionService = void 0;
 const common_1 = require("@nestjs/common");
 let VisionService = class VisionService {
-    lastDetection;
     constructor() {
         this.generateDetection();
         setInterval(() => this.generateDetection(), 5000);

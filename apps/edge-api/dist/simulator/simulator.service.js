@@ -18,15 +18,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const simulator_log_entity_1 = require("./simulator-log.entity");
 let SimulatorService = class SimulatorService {
-    logRepo;
-    latitude = 48.8566;
-    longitude = 2.3522;
-    speed = 16;
-    fuelLevel = 72;
-    engineStatus = "Running";
-    lastUpdate = new Date();
     constructor(logRepo) {
         this.logRepo = logRepo;
+        this.latitude = 48.8566;
+        this.longitude = 2.3522;
+        this.speed = 16;
+        this.fuelLevel = 72;
+        this.engineStatus = "Running";
+        this.lastUpdate = new Date();
         setInterval(async () => {
             this.latitude += (Math.random() - 0.5) * 0.02;
             this.longitude += (Math.random() - 0.5) * 0.02;

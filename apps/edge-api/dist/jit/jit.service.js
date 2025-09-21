@@ -13,7 +13,6 @@ exports.JitService = void 0;
 const common_1 = require("@nestjs/common");
 const ai_service_1 = require("../ai/ai.service");
 let JitService = class JitService {
-    ai;
     constructor(ai) {
         this.ai = ai;
     }

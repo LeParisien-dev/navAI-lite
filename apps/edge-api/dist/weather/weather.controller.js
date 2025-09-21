@@ -13,7 +13,6 @@ exports.WeatherController = void 0;
 const common_1 = require("@nestjs/common");
 const weather_service_1 = require("./weather.service");
 let WeatherController = class WeatherController {
-    weatherService;
     constructor(weatherService) {
         this.weatherService = weatherService;
     }

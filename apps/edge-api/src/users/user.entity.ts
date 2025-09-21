@@ -6,26 +6,26 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('user')
+@Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     @Column({ unique: true, length: 50 })
-    username: string;
+    username!: string;
 
     @Column({ unique: true })
-    email: string;
+    email!: string;
 
     @Column({ select: false, length: 255 })
-    passwordHash: string;
+    passwordHash!: string;
 
     @Column({ default: false })
-    isLoggedIn: boolean;
+    isLoggedIn!: boolean;
 
     @CreateDateColumn()
-    createdAt: Date;
+    createdAt!: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updatedAt!: Date;
 }

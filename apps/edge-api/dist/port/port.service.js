@@ -19,8 +19,6 @@ const typeorm_2 = require("typeorm");
 const port_entity_1 = require("./port.entity");
 const ai_service_1 = require("../ai/ai.service");
 let PortService = class PortService {
-    portRepo;
-    aiService;
     constructor(portRepo, aiService) {
         this.portRepo = portRepo;
         this.aiService = aiService;

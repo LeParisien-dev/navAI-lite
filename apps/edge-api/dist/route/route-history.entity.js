@@ -12,11 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RouteHistory = void 0;
 const typeorm_1 = require("typeorm");
 let RouteHistory = class RouteHistory {
-    id;
-    userId;
-    origin;
-    destination;
-    createdAt;
 };
 exports.RouteHistory = RouteHistory;
 __decorate([

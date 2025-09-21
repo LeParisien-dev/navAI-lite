@@ -17,8 +17,6 @@ const common_1 = require("@nestjs/common");
 const ai_service_1 = require("./ai.service");
 const orchestrator_service_1 = require("./orchestrator.service");
 let AiController = class AiController {
-    aiService;
-    orchestrator;
     constructor(aiService, orchestrator) {
         this.aiService = aiService;
         this.orchestrator = orchestrator;

@@ -20,8 +20,6 @@ const login_dto_1 = require("./dto/login.dto");
 const public_decorator_1 = require("./public.decorator");
 const jwt_1 = require("@nestjs/jwt");
 let AuthController = class AuthController {
-    authService;
-    jwtService;
     constructor(authService, jwtService) {
         this.authService = authService;
         this.jwtService = jwtService;
@@ -59,5 +57,6 @@ __decorate([
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
-    jwt_1.JwtService])
+        jwt_1.JwtService])
 ], AuthController);
+//# sourceMappingURL=auth.controller.js.map

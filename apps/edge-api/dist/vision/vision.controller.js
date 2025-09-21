@@ -13,7 +13,6 @@ exports.VisionController = void 0;
 const common_1 = require("@nestjs/common");
 const vision_service_1 = require("./vision.service");
 let VisionController = class VisionController {
-    visionService;
     constructor(visionService) {
         this.visionService = visionService;
     }

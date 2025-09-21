@@ -23,8 +23,8 @@ function levelFromScore(score) {
     return 'High';
 }
 let AiService = AiService_1 = class AiService {
-    logger = new common_1.Logger(AiService_1.name);
     constructor() {
+        this.logger = new common_1.Logger(AiService_1.name);
         this.logger.log('AI Service initialisé (mocks hybrides déterministes + aléatoires)');
     }
     predictCongestion(portName) {
@@ -88,3 +88,4 @@ exports.AiService = AiService = AiService_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [])
 ], AiService);
+//# sourceMappingURL=ai.service.js.map

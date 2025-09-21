@@ -17,8 +17,6 @@ const common_1 = require("@nestjs/common");
 const port_service_1 = require("./port.service");
 const ai_service_1 = require("../ai/ai.service");
 let PortController = class PortController {
-    portService;
-    ai;
     constructor(portService, ai) {
         this.portService = portService;
         this.ai = ai;

@@ -12,13 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SimulatorLog = void 0;
 const typeorm_1 = require("typeorm");
 let SimulatorLog = class SimulatorLog {
-    id;
-    speed;
-    fuelLevel;
-    engineStatus;
-    lat;
-    lon;
-    createdAt;
 };
 exports.SimulatorLog = SimulatorLog;
 __decorate([

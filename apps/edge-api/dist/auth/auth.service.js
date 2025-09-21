@@ -47,7 +47,6 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("../users/users.service");
 const bcrypt = __importStar(require("bcrypt"));
 let AuthService = class AuthService {
-    usersService;
     constructor(usersService) {
         this.usersService = usersService;
     }

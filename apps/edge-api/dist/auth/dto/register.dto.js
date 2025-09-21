@@ -12,9 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterDto = void 0;
 const class_validator_1 = require("class-validator");
 class RegisterDto {
-    username;
-    email;
-    password;
 }
 exports.RegisterDto = RegisterDto;
 __decorate([
@@ -32,3 +29,4 @@ __decorate([
     (0, class_validator_1.MinLength)(6, { message: 'Le mot de passe doit contenir au moins 6 caractères' }),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "password", void 0);
+//# sourceMappingURL=register.dto.js.map

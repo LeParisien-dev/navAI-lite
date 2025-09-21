@@ -16,7 +16,6 @@ exports.RouteController = void 0;
 const common_1 = require("@nestjs/common");
 const route_service_1 = require("./route.service");
 let RouteController = class RouteController {
-    routeService;
     constructor(routeService) {
         this.routeService = routeService;
     }

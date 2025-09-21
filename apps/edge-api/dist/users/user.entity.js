@@ -12,13 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 let User = class User {
-    id;
-    username;
-    email;
-    passwordHash;
-    isLoggedIn;
-    createdAt;
-    updatedAt;
 };
 exports.User = User;
 __decorate([
@@ -50,6 +43,6 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Entity)('user')
+    (0, typeorm_1.Entity)()
 ], User);
 //# sourceMappingURL=user.entity.js.map

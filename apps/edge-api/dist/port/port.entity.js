@@ -12,10 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Port = void 0;
 const typeorm_1 = require("typeorm");
 let Port = class Port {
-    id;
-    name;
-    country;
-    congestion;
 };
 exports.Port = Port;
 __decorate([

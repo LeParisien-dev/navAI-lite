@@ -13,7 +13,6 @@ exports.OrchestratorService = void 0;
 const common_1 = require("@nestjs/common");
 const ai_service_1 = require("./ai.service");
 let OrchestratorService = class OrchestratorService {
-    aiService;
     constructor(aiService) {
         this.aiService = aiService;
     }

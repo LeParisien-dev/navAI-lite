@@ -16,7 +16,6 @@ exports.JitController = void 0;
 const common_1 = require("@nestjs/common");
 const jit_service_1 = require("./jit.service");
 let JitController = class JitController {
-    jit;
     constructor(jit) {
         this.jit = jit;
     }

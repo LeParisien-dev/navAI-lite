@@ -52,7 +52,6 @@ const typeorm_2 = require("typeorm");
 const bcrypt = __importStar(require("bcrypt"));
 const user_entity_1 = require("./user.entity");
 let UsersService = class UsersService {
-    usersRepo;
     constructor(usersRepo) {
         this.usersRepo = usersRepo;
     }

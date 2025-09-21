@@ -18,11 +18,10 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const route_history_entity_1 = require("./route-history.entity");
 let RouteService = class RouteService {
-    routeRepo;
     constructor(routeRepo) {
         this.routeRepo = routeRepo;
+        this.sessions = new Map();
     }
-    sessions = new Map();
     createSession(userId) {
         const ports = ["Le Havre", "New York", "Shanghai", "Hamburg", "Los Angeles", "Singapore"];
         const origin = ports[Math.floor(Math.random() * ports.length)];

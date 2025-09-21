@@ -16,7 +16,6 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
-    usersService;
     constructor(usersService) {
         this.usersService = usersService;
     }
