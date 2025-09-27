@@ -3,7 +3,6 @@ import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { join, resolve } from 'path';
 
-// Charge .env quel que soit l’endroit d’où tu lances la commande
 dotenv.config({ path: resolve(__dirname, '../.env') });
 dotenv.config({ path: resolve(process.cwd(), 'apps/edge-api/.env') });
 
@@ -15,7 +14,8 @@ export const AppDataSource = new DataSource({
     username: process.env.DATABASE_URL ? undefined : process.env.DB_USER || 'navai',
     password: process.env.DATABASE_URL ? undefined : process.env.DB_PASS || 'navai',
     database: process.env.DATABASE_URL ? undefined : process.env.DB_NAME || 'navai',
-    ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+    // Forcer SSL pour Neon / Render
+    ssl: { rejectUnauthorized: false },
     entities: [join(__dirname, '/**/*.entity.{ts,js}')],
     migrations: [join(__dirname, '/migrations/*.{ts,js}')],
     synchronize: false,
